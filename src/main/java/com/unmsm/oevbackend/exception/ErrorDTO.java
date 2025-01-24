@@ -6,12 +6,10 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ErrorDTO {
 
     private String message;
-
-    public ErrorDTO(String message) {
-        this.message = message;
-    }
 
 }

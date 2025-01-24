@@ -17,12 +17,14 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorDTO> handleUserNotFoundException(UserNotFoundException ex) {
         return ResponseEntity
                 .status(ex.getStatus())
-                .body(new ErrorDTO( ex.getMessage()));
+                .body(new ErrorDTO(ex.getMessage()));
     }
 
     @ExceptionHandler(AppException.class)
     public ResponseEntity<ErrorDTO> handleAppException(AppException ex) {
-        return ResponseEntity.status(ex.getStatus()).body(new ErrorDTO(ex.getMessage()));
+        return ResponseEntity
+                .status(ex.getStatus())
+                .body(new ErrorDTO(ex.getMessage()));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -31,7 +33,9 @@ public class GlobalExceptionHandler {
         for (FieldError error : ex.getBindingResult().getFieldErrors()) {
             errors.put(error.getField(), error.getDefaultMessage());
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(errors);
     }
 }
 

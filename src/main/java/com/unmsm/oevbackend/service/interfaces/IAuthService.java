@@ -7,8 +7,6 @@ import com.unmsm.oevbackend.dto.response.UserResponseDTO;
 
 public interface IAuthService {
 
-//    AuthUserResponseDTO login(UserLoginRequestDTO userLoginRequestDTO);
-
     AuthUserResponseDTO login(UserLoginRequestDTO userLoginRequestDTO);
 
     UserResponseDTO register(UserRegisterRequestDTO userRequestDTO);
