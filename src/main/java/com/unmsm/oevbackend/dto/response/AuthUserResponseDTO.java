@@ -1,4 +1,4 @@
-package com.unmsm.oevbackend.dto.request;
+package com.unmsm.oevbackend.dto.response;
 
 import com.unmsm.oevbackend.model.enums.Role;
 import lombok.*;
@@ -8,7 +8,9 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class RegisterRequestDTO {
+public class AuthUserResponseDTO {
+
+    private Long id;
 
     private String name;
 
@@ -18,11 +20,9 @@ public class RegisterRequestDTO {
 
     private String email;
 
-    private String password;
-
     private String phone;
 
     private Role role;
-
-
+    
+    private String token;
 }
