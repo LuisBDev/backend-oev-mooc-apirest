@@ -2,6 +2,7 @@ package com.unmsm.oevbackend.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -12,6 +13,13 @@ import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<ErrorDTO> handleBadCredentialsException(BadCredentialsException ex) {
+        HttpStatus status = HttpStatus.UNAUTHORIZED;
+        ErrorDTO errorDTO = new ErrorDTO("Las credenciales proporcionadas son incorrectas.");
+        return ResponseEntity.status(status).body(errorDTO);
+    }
 
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<ErrorDTO> handleUserNotFoundException(UserNotFoundException ex) {
