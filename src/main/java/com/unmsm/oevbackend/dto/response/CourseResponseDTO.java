@@ -1,24 +1,18 @@
-package com.unmsm.oevbackend.model;
+package com.unmsm.oevbackend.dto.response;
 
-import jakarta.persistence.*;
+import com.unmsm.oevbackend.model.User;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
-@Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "tbl_course")
-public class Course {
+public class CourseResponseDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
     private String description;
     private String benefits;
@@ -32,16 +26,8 @@ public class Course {
     private Integer totalLessons;
     private Integer totalStudents;
     private Integer favorite;
-    private String status; // Ejemplo: 'ACTIVE', 'COMPLETED'
+    private String status;
     private LocalDateTime creationDate;
     private LocalDateTime lastUpdate;
-
-    @OneToMany(mappedBy = "course", orphanRemoval = true, cascade = CascadeType.ALL)
-    private List<Enrollment> enrollmentList;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
-
-
+    private Long userId;
 }

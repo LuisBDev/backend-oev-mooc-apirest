@@ -1,10 +1,7 @@
 package com.unmsm.oevbackend.service.interfaces;
 
 import com.unmsm.oevbackend.dto.request.UpdateUserRequestDTO;
-import com.unmsm.oevbackend.dto.request.UserRegisterRequestDTO;
 import com.unmsm.oevbackend.dto.response.UserResponseDTO;
-import jakarta.validation.Valid;
-import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
