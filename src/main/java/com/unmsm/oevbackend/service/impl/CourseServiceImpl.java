@@ -2,11 +2,15 @@ package com.unmsm.oevbackend.service.impl;
 
 import com.unmsm.oevbackend.dto.request.CourseRequestDTO;
 import com.unmsm.oevbackend.dto.response.CourseResponseDTO;
+import com.unmsm.oevbackend.dto.response.LessonResponseDTO;
 import com.unmsm.oevbackend.exception.AppException;
 import com.unmsm.oevbackend.exception.UserNotFoundException;
 import com.unmsm.oevbackend.mapper.CourseMapper;
+import com.unmsm.oevbackend.mapper.LessonMapper;
 import com.unmsm.oevbackend.model.Course;
+import com.unmsm.oevbackend.model.Lesson;
 import com.unmsm.oevbackend.model.User;
+import com.unmsm.oevbackend.model.enums.Role;
 import com.unmsm.oevbackend.repository.ICourseRepository;
 import com.unmsm.oevbackend.repository.IUserRepository;
 import com.unmsm.oevbackend.service.interfaces.ICourseService;
@@ -26,6 +30,8 @@ public class CourseServiceImpl implements ICourseService {
 
     private final CourseMapper courseMapper;
 
+    private final LessonMapper lessonMapper;
+
     private final IUserRepository userRepository;
 
     @Override
@@ -33,6 +39,13 @@ public class CourseServiceImpl implements ICourseService {
         List<Course> allCourses = courseRepository.findAll();
         return courseMapper.entityListToDTOList(allCourses);
     }
+
+    @Override
+    public List<CourseResponseDTO> findAllCoursesByUserId(Long userId) {
+        List<Course> allCourses = courseRepository.findCoursesPublishedByUserId(userId);
+        return courseMapper.entityListToDTOList(allCourses);
+    }
+    
 
     @Override
     public CourseResponseDTO findCourseById(Long id) {
@@ -58,10 +71,18 @@ public class CourseServiceImpl implements ICourseService {
         if (user.isEmpty()) {
             throw new UserNotFoundException("User with id " + userId + " not found", HttpStatus.NOT_FOUND);
         }
+
+        User userEntity = user.get();
+
+        if (!userEntity.getRole().equals(Role.INSTRUCTOR)) {
+            throw new AppException("User with id " + userId + " is not allowed to create courses", HttpStatus.FORBIDDEN);
+        }
+
         Course course = courseMapper.requestDTOToEntity(courseRequestDTO);
-        course.setUser(user.get());
+        course.setUser(userEntity);
         course.setCreationDate(LocalDateTime.now());
         course.setTotalStudents(0);
+        //TODO: Agregar campos automáticos al crear un curso
 
         courseRepository.save(course);
         return courseMapper.entityToDTO(course);

@@ -24,7 +24,6 @@ public class Course {
     private String benefits;
     private String targetAudience;
     private String imageUrl;
-    private String videoUrl;
     private String category;
     private String level;
     private Double price;
@@ -42,6 +41,9 @@ public class Course {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @OneToMany(mappedBy = "course", orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<Lesson> lessonList;
 
 
 }

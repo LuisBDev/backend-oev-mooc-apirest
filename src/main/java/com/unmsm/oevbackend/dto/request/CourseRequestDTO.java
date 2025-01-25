@@ -15,10 +15,10 @@ public class CourseRequestDTO {
 
     @NotNull
     private String description;
+
     private String benefits;
     private String targetAudience;
     private String imageUrl;
-    private String videoUrl;
     private String category;
     private String level;
     private Double price;

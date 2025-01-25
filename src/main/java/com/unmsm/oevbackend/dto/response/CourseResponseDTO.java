@@ -18,7 +18,6 @@ public class CourseResponseDTO {
     private String benefits;
     private String targetAudience;
     private String imageUrl;
-    private String videoUrl;
     private String category;
     private String level;
     private Double price;

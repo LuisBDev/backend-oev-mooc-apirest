@@ -27,6 +27,11 @@ public class CourseRestController {
         return ResponseEntity.ok(courseService.findAllCourses());
     }
 
+    @GetMapping("/findAllByUserId/{userId}")
+    public ResponseEntity<List<CourseResponseDTO>> findAllByUserId(@PathVariable Long userId) {
+        return ResponseEntity.ok(courseService.findAllCoursesByUserId(userId));
+    }
+
     @GetMapping("/findCourse/{id}")
     public ResponseEntity<CourseResponseDTO> findCourseById(@PathVariable Long id) {
         return ResponseEntity.ok(courseService.findCourseById(id));
