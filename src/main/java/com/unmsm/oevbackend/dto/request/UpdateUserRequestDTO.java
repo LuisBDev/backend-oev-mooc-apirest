@@ -1,6 +1,5 @@
 package com.unmsm.oevbackend.dto.request;
 
-import com.unmsm.oevbackend.model.enums.Role;
 import lombok.*;
 
 @Getter
@@ -20,11 +19,8 @@ public class UpdateUserRequestDTO {
 
     private String email;
 
-    private String password;
 
     private String phone;
-
-    private Role role;
 
 
 }
