@@ -3,6 +3,7 @@ package com.unmsm.oevbackend.controller;
 import com.unmsm.oevbackend.dto.request.UserLoginRequestDTO;
 import com.unmsm.oevbackend.dto.request.UserRegisterRequestDTO;
 import com.unmsm.oevbackend.dto.response.AuthUserResponseDTO;
+import com.unmsm.oevbackend.dto.response.TokenResponseDTO;
 import com.unmsm.oevbackend.dto.response.UserResponseDTO;
 import com.unmsm.oevbackend.service.interfaces.IAuthService;
 import jakarta.validation.Valid;

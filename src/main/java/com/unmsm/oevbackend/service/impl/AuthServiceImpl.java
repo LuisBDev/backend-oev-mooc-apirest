@@ -4,6 +4,7 @@ import com.unmsm.oevbackend.config.security.JwtService;
 import com.unmsm.oevbackend.dto.request.UserLoginRequestDTO;
 import com.unmsm.oevbackend.dto.request.UserRegisterRequestDTO;
 import com.unmsm.oevbackend.dto.response.AuthUserResponseDTO;
+import com.unmsm.oevbackend.dto.response.TokenResponseDTO;
 import com.unmsm.oevbackend.dto.response.UserResponseDTO;
 import com.unmsm.oevbackend.exception.AppException;
 import com.unmsm.oevbackend.exception.UserNotFoundException;
@@ -53,6 +54,7 @@ public class AuthServiceImpl implements IAuthService {
                 .orElseThrow(() -> new UserNotFoundException("User not found", HttpStatus.NOT_FOUND));
 
         AuthUserResponseDTO authUserResponseDTO = userMapper.entityToAuthUserResponseDTO(user);
+//        String token = jwtService.generateToken(user);
         authUserResponseDTO.setToken(jwtService.generateToken(user));
         return authUserResponseDTO;
     }
