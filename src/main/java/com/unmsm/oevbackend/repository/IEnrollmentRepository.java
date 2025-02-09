@@ -16,4 +16,7 @@ public interface IEnrollmentRepository extends JpaRepository<Enrollment, Long> {
     @Query("select e from Enrollment e where e.course.id = ?1")
     List<Enrollment> findEnrollmentsByCourseId(Long courseId);
 
+    @Query("select (count(e) > 0) from Enrollment e where e.user.id = ?1 and e.course.id = ?2")
+    boolean existsEnrollmentByUserIdAndCourseId(Long userId, Long courseId);
+
 }

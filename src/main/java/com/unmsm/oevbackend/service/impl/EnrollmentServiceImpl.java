@@ -41,6 +41,11 @@ public class EnrollmentServiceImpl implements IEnrollmentService {
         if (user.isEmpty()) {
             throw new AppException("User with id " + enrollmentRequestDTO.getUserId() + " not found", HttpStatus.NOT_FOUND);
         }
+
+        if (enrollmentRepository.existsEnrollmentByUserIdAndCourseId(enrollmentRequestDTO.getUserId(), enrollmentRequestDTO.getCourseId())) {
+            throw new AppException("User with id " + enrollmentRequestDTO.getUserId() + " is already enrolled in course with id " + enrollmentRequestDTO.getCourseId(), HttpStatus.BAD_REQUEST);
+        }
+
         Enrollment enrollmentEntity = Enrollment.builder()
                 .course(course.get())
                 .user(user.get())

@@ -41,6 +41,11 @@ public class RegistrationServiceImpl implements IRegistrationService {
         if (user.isEmpty()) {
             throw new AppException("User with id " + registrationRequestDTO.getUserId() + " not found", HttpStatus.NOT_FOUND);
         }
+
+        if (registrationRepository.existsRegistrationByUserIdAndConferenceId(registrationRequestDTO.getUserId(), registrationRequestDTO.getConferenceId())) {
+            throw new AppException("User with id " + registrationRequestDTO.getUserId() + " is already registered in conference with id " + registrationRequestDTO.getConferenceId(), HttpStatus.BAD_REQUEST);
+        }
+
         Registration registrationEntity = Registration.builder()
                 .conference(conference.get())
                 .user(user.get())

@@ -15,4 +15,7 @@ public interface IRegistrationRepository extends JpaRepository<Registration, Lon
 
     @Query("select e from Registration e where e.conference.id = ?1")
     List<Registration> findRegistrationsByConferenceId(Long conferenceId);
+
+    @Query("select (count(e) > 0) from Registration e where e.user.id = ?1 and e.conference.id = ?2")
+    boolean existsRegistrationByUserIdAndConferenceId(Long userId, Long conferenceId);
 }
