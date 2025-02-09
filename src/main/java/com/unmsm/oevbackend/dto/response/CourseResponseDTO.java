@@ -1,6 +1,5 @@
 package com.unmsm.oevbackend.dto.response;
 
-import com.unmsm.oevbackend.model.User;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -29,4 +28,5 @@ public class CourseResponseDTO {
     private LocalDateTime creationDate;
     private LocalDateTime lastUpdate;
     private Long userId;
+    private String instructorName;
 }

@@ -12,6 +12,8 @@ import java.util.List;
 public interface CourseMapper {
 
     @Mapping(source = "user.id", target = "userId")
+    @Mapping(expression = "java(course.getUser().getName() + ' ' + course.getUser().getPaternalSurname())",
+            target = "instructorName")
     CourseResponseDTO entityToDTO(Course course);
 
     List<CourseResponseDTO> entityListToDTOList(List<Course> courses);
