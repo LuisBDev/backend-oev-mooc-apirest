@@ -3,6 +3,7 @@ package com.unmsm.oevbackend.controller;
 import com.unmsm.oevbackend.dto.request.EnrollmentRequestDTO;
 import com.unmsm.oevbackend.dto.response.EnrollmentResponseDTO;
 import com.unmsm.oevbackend.service.interfaces.IEnrollmentService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ public class EnrollmentRestController {
     private final IEnrollmentService enrollmentService;
 
     @PostMapping("/create")
-    public ResponseEntity<EnrollmentResponseDTO> createEnrollment(@RequestBody EnrollmentRequestDTO enrollmentRequestDTO) {
+    public ResponseEntity<EnrollmentResponseDTO> createEnrollment(@Valid @RequestBody EnrollmentRequestDTO enrollmentRequestDTO) {
         EnrollmentResponseDTO response = enrollmentService.createEnrollment(enrollmentRequestDTO);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
