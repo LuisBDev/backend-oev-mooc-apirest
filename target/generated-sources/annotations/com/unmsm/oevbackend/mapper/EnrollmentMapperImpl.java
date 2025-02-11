@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-02-08T21:05:08-0500",
+    date = "2025-02-11T16:29:39-0500",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21 (Oracle Corporation)"
 )
 @Component
@@ -27,10 +27,14 @@ public class EnrollmentMapperImpl implements EnrollmentMapper {
 
         enrollmentResponseDTO.courseId( enrollmentCourseId( enrollment ) );
         enrollmentResponseDTO.userId( enrollmentUserId( enrollment ) );
+        enrollmentResponseDTO.courseImageUrl( enrollmentCourseImageUrl( enrollment ) );
+        enrollmentResponseDTO.courseName( enrollmentCourseName( enrollment ) );
         enrollmentResponseDTO.id( enrollment.getId() );
         enrollmentResponseDTO.status( enrollment.getStatus() );
         enrollmentResponseDTO.progress( enrollment.getProgress() );
         enrollmentResponseDTO.enrollmentDate( enrollment.getEnrollmentDate() );
+
+        enrollmentResponseDTO.instructorName( enrollment.getCourse().getUser().getName() + ' ' + enrollment.getCourse().getUser().getPaternalSurname() );
 
         return enrollmentResponseDTO.build();
     }
@@ -77,5 +81,35 @@ public class EnrollmentMapperImpl implements EnrollmentMapper {
             return null;
         }
         return id;
+    }
+
+    private String enrollmentCourseImageUrl(Enrollment enrollment) {
+        if ( enrollment == null ) {
+            return null;
+        }
+        Course course = enrollment.getCourse();
+        if ( course == null ) {
+            return null;
+        }
+        String imageUrl = course.getImageUrl();
+        if ( imageUrl == null ) {
+            return null;
+        }
+        return imageUrl;
+    }
+
+    private String enrollmentCourseName(Enrollment enrollment) {
+        if ( enrollment == null ) {
+            return null;
+        }
+        Course course = enrollment.getCourse();
+        if ( course == null ) {
+            return null;
+        }
+        String name = course.getName();
+        if ( name == null ) {
+            return null;
+        }
+        return name;
     }
 }

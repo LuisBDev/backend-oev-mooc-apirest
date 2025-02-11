@@ -10,8 +10,14 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface EnrollmentMapper {
 
+//    @Mapping(expression = "java(course.getUser().getName() + ' ' + course.getUser().getPaternalSurname())",
+//            target = "instructorName")
+
     @Mapping(source = "course.id", target = "courseId")
     @Mapping(source = "user.id", target = "userId")
+    @Mapping(source = "course.imageUrl", target = "courseImageUrl")
+    @Mapping(source = "course.name", target = "courseName")
+    @Mapping(expression = "java(enrollment.getCourse().getUser().getName() + ' ' + enrollment.getCourse().getUser().getPaternalSurname())", target = "instructorName")
     EnrollmentResponseDTO entityToResponseDTO(Enrollment enrollment);
 
     List<EnrollmentResponseDTO> entityListToResponseDTOList(List<Enrollment> enrollments);

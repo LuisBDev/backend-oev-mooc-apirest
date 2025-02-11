@@ -23,4 +23,10 @@ public class EnrollmentResponseDTO {
 
     private LocalDateTime enrollmentDate;
 
+    private String courseImageUrl;
+
+    private String courseName;
+
+    private String instructorName;
+
 }
