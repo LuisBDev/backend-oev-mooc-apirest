@@ -17,7 +17,7 @@ public class LessonRestController {
 
     private final ILessonService lessonService;
 
-    @GetMapping("/findByCourseId/{courseId}")
+    @GetMapping("/findLessonsByCourseId/{courseId}")
     public ResponseEntity<List<LessonResponseDTO>> findLessonsByCourseId(@PathVariable Long courseId) {
         return ResponseEntity.ok(lessonService.findLessonsByCourseId(courseId));
     }

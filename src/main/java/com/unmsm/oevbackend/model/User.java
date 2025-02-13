@@ -54,6 +54,9 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Conference> conferenceList;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UserLessonProgress> lessonProgressList;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

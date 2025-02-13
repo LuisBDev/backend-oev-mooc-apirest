@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -24,13 +25,17 @@ public class Lesson {
     private Integer duration;
     private Integer sequenceOrder;
 
-    @Enumerated(EnumType.STRING)
-    private Status status;
 
     private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
 
     @ManyToOne
     @JoinColumn(name = "course_id", nullable = false)
     private Course course;
+
+    @OneToMany(mappedBy = "lesson", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UserLessonProgress> progressList;
+
 
 }

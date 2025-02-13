@@ -4,12 +4,9 @@ import com.unmsm.oevbackend.dto.request.EnrollmentRequestDTO;
 import com.unmsm.oevbackend.dto.response.EnrollmentResponseDTO;
 import com.unmsm.oevbackend.exception.AppException;
 import com.unmsm.oevbackend.mapper.EnrollmentMapper;
-import com.unmsm.oevbackend.model.Course;
-import com.unmsm.oevbackend.model.Enrollment;
-import com.unmsm.oevbackend.model.User;
-import com.unmsm.oevbackend.repository.ICourseRepository;
-import com.unmsm.oevbackend.repository.IEnrollmentRepository;
-import com.unmsm.oevbackend.repository.IUserRepository;
+import com.unmsm.oevbackend.model.*;
+import com.unmsm.oevbackend.model.enums.Status;
+import com.unmsm.oevbackend.repository.*;
 import com.unmsm.oevbackend.service.interfaces.IEnrollmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -28,6 +25,10 @@ public class EnrollmentServiceImpl implements IEnrollmentService {
     private final ICourseRepository courseRepository;
 
     private final IUserRepository userRepository;
+
+    private final ILessonRepository lessonRepository;
+
+    private final IUserLessonProgressRepository userLessonProgressRepository;
 
     private final EnrollmentMapper enrollmentMapper;
 
@@ -55,7 +56,27 @@ public class EnrollmentServiceImpl implements IEnrollmentService {
                 .build();
 
         enrollmentRepository.save(enrollmentEntity);
+
+        enrollUserInCourseLessons(course.get(), user.get());
+
+
         return enrollmentMapper.entityToResponseDTO(enrollmentEntity);
+    }
+
+    public void enrollUserInCourseLessons(Course course, User user) {
+        // Obtener todas las lecciones del curso
+        List<Lesson> lessons = lessonRepository.findLessonsByCourseId(course.getId());
+
+        // Crear un registro de progreso para cada lección con estado NOT_COMPLETED
+        List<UserLessonProgress> progressList = lessons.stream()
+                .map(lesson -> UserLessonProgress.builder()
+                        .user(user)
+                        .lesson(lesson)
+                        .status(Status.NOT_COMPLETED)
+                        .build())
+                .toList();
+
+        userLessonProgressRepository.saveAll(progressList);
     }
 
     @Override
