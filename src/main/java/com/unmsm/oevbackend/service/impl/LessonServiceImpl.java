@@ -61,7 +61,7 @@ public class LessonServiceImpl implements ILessonService {
 
     private void assignLessonProgressToEnrolledUsers(Course course, Lesson lesson) {
         // Obtener los usuarios inscritos en el curso
-        List<User> enrolledUsers = enrollmentRepository.findUsersByCourseId(course.getId());
+        List<User> enrolledUsers = enrollmentRepository.findEnrolledUsersByCourseId(course.getId());
 
         // Crear el progreso para cada usuario si aún no existe
         List<UserLessonProgress> progressList = enrolledUsers.stream()
