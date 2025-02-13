@@ -3,6 +3,8 @@ package com.unmsm.oevbackend.dto.response;
 import com.unmsm.oevbackend.model.enums.Status;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -16,7 +18,9 @@ public class LessonResponseDTO {
     private Integer duration;
     private Integer sequenceOrder;
 
-    private Status status;
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
 
     private Long courseId;
 

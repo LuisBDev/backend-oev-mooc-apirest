@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-02-11T16:29:39-0500",
+    date = "2025-02-12T21:20:06-0500",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21 (Oracle Corporation)"
 )
 @Component
@@ -31,7 +31,8 @@ public class LessonMapperImpl implements LessonMapper {
         lessonResponseDTO.videoUrl( lesson.getVideoUrl() );
         lessonResponseDTO.duration( lesson.getDuration() );
         lessonResponseDTO.sequenceOrder( lesson.getSequenceOrder() );
-        lessonResponseDTO.status( lesson.getStatus() );
+        lessonResponseDTO.createdAt( lesson.getCreatedAt() );
+        lessonResponseDTO.updatedAt( lesson.getUpdatedAt() );
 
         return lessonResponseDTO.build();
     }
