@@ -2,6 +2,7 @@ package com.unmsm.oevbackend.controller;
 
 import com.unmsm.oevbackend.dto.request.EnrollmentRequestDTO;
 import com.unmsm.oevbackend.dto.response.EnrollmentResponseDTO;
+import com.unmsm.oevbackend.dto.response.UserResponseDTO;
 import com.unmsm.oevbackend.service.interfaces.IEnrollmentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -41,6 +42,13 @@ public class EnrollmentRestController {
         List<EnrollmentResponseDTO> response = enrollmentService.findEnrollmentsByCourseId(courseId);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @GetMapping("/findEnrolledUsersByCourseId/{courseId}")
+    public ResponseEntity<List<UserResponseDTO>> findEnrolledUsersByCourseId(@PathVariable Long courseId) {
+        List<UserResponseDTO> response = enrollmentService.findEnrolledUsersByCourseId(courseId);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteEnrollmentById(@PathVariable Long id) {

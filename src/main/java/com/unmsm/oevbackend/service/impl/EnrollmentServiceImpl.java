@@ -2,8 +2,10 @@ package com.unmsm.oevbackend.service.impl;
 
 import com.unmsm.oevbackend.dto.request.EnrollmentRequestDTO;
 import com.unmsm.oevbackend.dto.response.EnrollmentResponseDTO;
+import com.unmsm.oevbackend.dto.response.UserResponseDTO;
 import com.unmsm.oevbackend.exception.AppException;
 import com.unmsm.oevbackend.mapper.EnrollmentMapper;
+import com.unmsm.oevbackend.mapper.UserMapper;
 import com.unmsm.oevbackend.model.*;
 import com.unmsm.oevbackend.model.enums.Status;
 import com.unmsm.oevbackend.repository.*;
@@ -31,6 +33,8 @@ public class EnrollmentServiceImpl implements IEnrollmentService {
     private final IUserLessonProgressRepository userLessonProgressRepository;
 
     private final EnrollmentMapper enrollmentMapper;
+
+    private final UserMapper userMapper;
 
     @Override
     public EnrollmentResponseDTO createEnrollment(EnrollmentRequestDTO enrollmentRequestDTO) {
@@ -108,5 +112,11 @@ public class EnrollmentServiceImpl implements IEnrollmentService {
             throw new AppException("Enrollment with id " + enrollmentId + " not found", HttpStatus.NOT_FOUND);
         }
         enrollmentRepository.deleteById(enrollmentId);
+    }
+
+    @Override
+    public List<UserResponseDTO> findEnrolledUsersByCourseId(Long courseId) {
+        List<User> enrolledUsers = enrollmentRepository.findEnrolledUsersByCourseId(courseId);
+        return userMapper.entityListToDTOList(enrolledUsers);
     }
 }

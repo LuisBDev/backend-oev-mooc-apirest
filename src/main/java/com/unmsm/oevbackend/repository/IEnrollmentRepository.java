@@ -21,5 +21,5 @@ public interface IEnrollmentRepository extends JpaRepository<Enrollment, Long> {
     boolean existsEnrollmentByUserIdAndCourseId(Long userId, Long courseId);
 
     @Query("select e.user from Enrollment e where e.course.id = ?1")
-    List<User> findUsersByCourseId(Long courseId);
+    List<User> findEnrolledUsersByCourseId(Long courseId);
 }
