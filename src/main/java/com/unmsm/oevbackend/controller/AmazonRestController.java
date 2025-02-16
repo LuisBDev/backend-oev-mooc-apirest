@@ -1,5 +1,6 @@
 package com.unmsm.oevbackend.controller;
 
+import com.unmsm.oevbackend.dto.response.record.PresignedUrlDTO;
 import com.unmsm.oevbackend.service.interfaces.IS3Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -50,14 +51,14 @@ public class AmazonRestController {
     }
 
     @GetMapping("/file/upload-url")
-    public ResponseEntity<String> generatePreSignedUploadUrl(@RequestParam String bucketName, @RequestParam String key, @RequestParam Long durationSeconds) {
-        String url = s3Service.generatePreSignedUploadUrl(bucketName, key, Duration.ofSeconds(durationSeconds));
-        return new ResponseEntity<>(url, HttpStatus.OK);
+    public ResponseEntity<PresignedUrlDTO> generatePreSignedUploadUrl(@RequestParam String bucketName, @RequestParam String key, @RequestParam Long durationSeconds) {
+        PresignedUrlDTO presignedUrlDTO = s3Service.generatePreSignedUploadUrl(bucketName, key, Duration.ofSeconds(durationSeconds));
+        return new ResponseEntity<>(presignedUrlDTO, HttpStatus.OK);
     }
 
     @GetMapping("/file/download-url")
-    public ResponseEntity<String> generatePreSignedDownloadUrl(@RequestParam String bucketName, @RequestParam String key, @RequestParam Long durationSeconds) {
-        String url = s3Service.generatePreSignedDownloadUrl(bucketName, key, Duration.ofSeconds(durationSeconds));
-        return new ResponseEntity<>(url, HttpStatus.OK);
+    public ResponseEntity<PresignedUrlDTO> generatePreSignedDownloadUrl(@RequestParam String bucketName, @RequestParam String key, @RequestParam Long durationSeconds) {
+        PresignedUrlDTO presignedUrlDTO = s3Service.generatePreSignedDownloadUrl(bucketName, key, Duration.ofSeconds(durationSeconds));
+        return new ResponseEntity<>(presignedUrlDTO, HttpStatus.OK);
     }
 }

@@ -1,5 +1,6 @@
 package com.unmsm.oevbackend.service.interfaces;
 
+import com.unmsm.oevbackend.dto.response.record.PresignedUrlDTO;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -18,9 +19,9 @@ public interface IS3Service {
 
     Boolean uploadFile(String bucketName, String key, MultipartFile file) throws IOException;
 
-    String generatePreSignedUploadUrl(String bucketName, String key, Duration duration);
+    PresignedUrlDTO generatePreSignedUploadUrl(String bucketName, String key, Duration duration);
 
-    String generatePreSignedDownloadUrl(String bucketName, String key, Duration duration);
+    PresignedUrlDTO generatePreSignedDownloadUrl(String bucketName, String key, Duration duration);
 
 
 }

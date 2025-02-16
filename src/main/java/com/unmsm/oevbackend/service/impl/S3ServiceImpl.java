@@ -1,5 +1,6 @@
 package com.unmsm.oevbackend.service.impl;
 
+import com.unmsm.oevbackend.dto.response.record.PresignedUrlDTO;
 import com.unmsm.oevbackend.service.interfaces.IS3Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -82,14 +83,15 @@ public class S3ServiceImpl implements IS3Service {
 
 
     @Override
-    public String generatePreSignedUploadUrl(String bucketName, String key, Duration duration) {
+    public PresignedUrlDTO generatePreSignedUploadUrl(String bucketName, String key, Duration duration) {
         try { // Try-With-Resources para cerrar automáticamente
             PutObjectPresignRequest presignRequest = PutObjectPresignRequest.builder()
                     .signatureDuration(duration)
                     .putObjectRequest(putObjectRequest -> putObjectRequest.bucket(bucketName).key(key))
                     .build();
-
-            return s3Presigner.presignPutObject(presignRequest).url().toString();
+            String url = s3Presigner.presignPutObject(presignRequest).url().toString();
+            log.info("URL generada: {}", url);
+            return new PresignedUrlDTO(url);
         } catch (S3Exception e) {
             log.error("Error al generar Presigned URL para S3: {}", e.getMessage(), e);
         } catch (Exception e) {
@@ -101,7 +103,7 @@ public class S3ServiceImpl implements IS3Service {
 
 
     @Override
-    public String generatePreSignedDownloadUrl(String bucketName, String key, Duration duration) {
+    public PresignedUrlDTO generatePreSignedDownloadUrl(String bucketName, String key, Duration duration) {
         try { // Try-With-Resources para cerrar automáticamente
 
             GetObjectRequest getObjectRequest = GetObjectRequest.builder()
@@ -116,7 +118,8 @@ public class S3ServiceImpl implements IS3Service {
 
             String url = s3Presigner.presignGetObject(presignRequest).url().toString();
             log.info("URL generada: {}", url);
-            return url;
+            return new PresignedUrlDTO(url);
+
         } catch (S3Exception e) {
             log.error("Error al generar Presigned URL para S3: {}", e.getMessage(), e);
         } catch (Exception e) {
