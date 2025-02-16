@@ -2,6 +2,7 @@ package com.unmsm.oevbackend.service.impl;
 
 import com.unmsm.oevbackend.service.interfaces.IS3Service;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.core.sync.RequestBody;
@@ -17,9 +18,13 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class S3ServiceImpl implements IS3Service {
 
     private final S3Client s3Client;
+
+    private final S3Presigner s3Presigner;
+
 
     @Override
     public String createBucket(String bucketName) {
@@ -51,38 +56,72 @@ public class S3ServiceImpl implements IS3Service {
     }
 
     @Override
-    public Boolean uploadFile(String bucketName, String key, MultipartFile file) throws IOException {
-        PutObjectRequest putObjectRequest = PutObjectRequest.builder()
-                .bucket(bucketName)
-                .key(key)
-                .build();
-        PutObjectResponse putObjectResponse = this.s3Client.putObject(putObjectRequest, RequestBody.fromBytes(file.getBytes()));
-        return putObjectResponse.sdkHttpResponse().isSuccessful();
+    public Boolean uploadFile(String bucketName, String key, MultipartFile file) {
+        try {
+            PutObjectRequest putObjectRequest = PutObjectRequest.builder()
+                    .bucket(bucketName)
+                    .key(key)
+                    .build();
+
+            PutObjectResponse putObjectResponse = this.s3Client.putObject(
+                    putObjectRequest,
+                    RequestBody.fromBytes(file.getBytes())
+            );
+
+            return putObjectResponse.sdkHttpResponse().isSuccessful();
+        } catch (IOException e) {
+            // Loguear la excepción para depuración
+            log.error("Error al leer el archivo: {}", e.getMessage(), e);
+        } catch (S3Exception e) {
+            // Loguear errores específicos de AWS S3
+            log.error("Error al subir el archivo a S3: {}", e.getMessage(), e);
+        }
+
+        return false; // Retorna false si hubo un error
     }
+
 
     @Override
     public String generatePreSignedUploadUrl(String bucketName, String key, Duration duration) {
-        try (S3Presigner presigner = S3Presigner.create()) { // Try-With-Resources para cerrar automáticamente
+        try { // Try-With-Resources para cerrar automáticamente
             PutObjectPresignRequest presignRequest = PutObjectPresignRequest.builder()
                     .signatureDuration(duration)
                     .putObjectRequest(putObjectRequest -> putObjectRequest.bucket(bucketName).key(key))
                     .build();
 
-            return presigner.presignPutObject(presignRequest).url().toString();
+            return s3Presigner.presignPutObject(presignRequest).url().toString();
+        } catch (S3Exception e) {
+            log.error("Error al generar Presigned URL para S3: {}", e.getMessage(), e);
+        } catch (Exception e) {
+            log.error("Error inesperado al generar Presigned URL: {}", e.getMessage(), e);
         }
+
+        return null;
     }
 
 
     @Override
     public String generatePreSignedDownloadUrl(String bucketName, String key, Duration duration) {
-        try (S3Presigner presigner = S3Presigner.create()) { // Try-With-Resources para cerrar automáticamente
+        try { // Try-With-Resources para cerrar automáticamente
+
+            GetObjectRequest getObjectRequest = GetObjectRequest.builder()
+                    .bucket(bucketName)
+                    .key(key)
+                    .build();
 
             GetObjectPresignRequest presignRequest = GetObjectPresignRequest.builder()
                     .signatureDuration(duration)
-                    .getObjectRequest(getObjectRequest -> getObjectRequest.bucket(bucketName).key(key))
+                    .getObjectRequest(getObjectRequest)
                     .build();
 
-            return presigner.presignGetObject(presignRequest).url().toString();
+            String url = s3Presigner.presignGetObject(presignRequest).url().toString();
+            log.info("URL generada: {}", url);
+            return url;
+        } catch (S3Exception e) {
+            log.error("Error al generar Presigned URL para S3: {}", e.getMessage(), e);
+        } catch (Exception e) {
+            log.error("Error inesperado al generar Presigned URL: {}", e.getMessage(), e);
         }
+        return null;
     }
 }
