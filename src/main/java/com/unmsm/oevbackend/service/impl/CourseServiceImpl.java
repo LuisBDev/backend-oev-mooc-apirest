@@ -14,6 +14,7 @@ import com.unmsm.oevbackend.model.enums.Role;
 import com.unmsm.oevbackend.repository.ICourseRepository;
 import com.unmsm.oevbackend.repository.IUserRepository;
 import com.unmsm.oevbackend.service.interfaces.ICourseService;
+import com.unmsm.oevbackend.service.interfaces.IS3Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,8 @@ public class CourseServiceImpl implements ICourseService {
 
     private final IUserRepository userRepository;
 
+    private final IS3Service s3Service;
+
     @Override
     public List<CourseResponseDTO> findAllCourses() {
         List<Course> allCourses = courseRepository.findAll();
@@ -45,7 +48,7 @@ public class CourseServiceImpl implements ICourseService {
         List<Course> allCourses = courseRepository.findCoursesPublishedByUserId(userId);
         return courseMapper.entityListToDTOList(allCourses);
     }
-    
+
 
     @Override
     public CourseResponseDTO findCourseById(Long id) {
@@ -62,6 +65,14 @@ public class CourseServiceImpl implements ICourseService {
         if (course.isEmpty()) {
             throw new AppException("Course with id " + id + " not found", HttpStatus.NOT_FOUND);
         }
+
+        List<Lesson> lessons = course.get().getLessonList();
+
+        if (lessons != null && !lessons.isEmpty()) {
+            lessons.forEach(lesson -> s3Service.deleteFile("oev-mooc-bucket", lesson.getVideoKey()));
+        }
+
+
         courseRepository.deleteById(id);
     }
 

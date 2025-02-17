@@ -21,7 +21,7 @@ public class Lesson {
     private Long id;
 
     private String title;
-    private String videoUrl;
+    private String videoKey;
     private Integer duration;
     private Integer sequenceOrder;
 
@@ -36,6 +36,8 @@ public class Lesson {
 
     @OneToMany(mappedBy = "lesson", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserLessonProgress> progressList;
+
+//    TODO: Post eliminacion de entidad, eliminar su video de s3
 
 
 }

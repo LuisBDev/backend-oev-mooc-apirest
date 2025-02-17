@@ -1,6 +1,8 @@
 com\unmsm\oevbackend\config\CorsConfig.class
+com\unmsm\oevbackend\controller\AmazonRestController.class
 com\unmsm\oevbackend\dto\request\RegistrationRequestDTO$RegistrationRequestDTOBuilder.class
 com\unmsm\oevbackend\service\impl\RegistrationServiceImpl.class
+com\unmsm\oevbackend\dto\response\record\PresignedUrlDTO.class
 com\unmsm\oevbackend\mapper\RegistrationMapper.class
 com\unmsm\oevbackend\model\User.class
 com\unmsm\oevbackend\dto\request\UserLoginRequestDTO.class
@@ -13,11 +15,13 @@ com\unmsm\oevbackend\mapper\EnrollmentMapperImpl.class
 com\unmsm\oevbackend\exception\ErrorDTO.class
 com\unmsm\oevbackend\service\impl\AuthServiceImpl.class
 com\unmsm\oevbackend\mapper\EnrollmentMapper.class
+com\unmsm\oevbackend\config\aws\AwsConfig.class
 com\unmsm\oevbackend\repository\IEnrollmentRepository.class
 com\unmsm\oevbackend\model\UserLessonProgress.class
 com\unmsm\oevbackend\model\User$UserBuilder.class
 com\unmsm\oevbackend\mapper\CourseMapperImpl.class
 com\unmsm\oevbackend\service\interfaces\IUserService.class
+com\unmsm\oevbackend\service\interfaces\IS3Service.class
 com\unmsm\oevbackend\model\Enrollment.class
 com\unmsm\oevbackend\repository\IUserRepository.class
 com\unmsm\oevbackend\service\interfaces\IEnrollmentService.class
@@ -90,6 +94,7 @@ com\unmsm\oevbackend\controller\RegistrationRestController.class
 com\unmsm\oevbackend\model\enums\Role.class
 com\unmsm\oevbackend\dto\response\UserResponseDTO.class
 com\unmsm\oevbackend\dto\response\RegistrationResponseDTO$RegistrationResponseDTOBuilder.class
+com\unmsm\oevbackend\service\impl\S3ServiceImpl.class
 com\unmsm\oevbackend\dto\response\CourseResponseDTO$CourseResponseDTOBuilder.class
 com\unmsm\oevbackend\dto\response\UserLessonProgressResponseDTO$UserLessonProgressResponseDTOBuilder.class
 com\unmsm\oevbackend\dto\request\ConferenceRequestDTO.class

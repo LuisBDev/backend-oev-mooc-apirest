@@ -14,9 +14,11 @@ import com.unmsm.oevbackend.repository.IEnrollmentRepository;
 import com.unmsm.oevbackend.repository.ILessonRepository;
 import com.unmsm.oevbackend.repository.IUserLessonProgressRepository;
 import com.unmsm.oevbackend.service.interfaces.ILessonService;
+import com.unmsm.oevbackend.service.interfaces.IS3Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import software.amazon.awssdk.services.s3.model.S3Exception;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -36,6 +38,8 @@ public class LessonServiceImpl implements ILessonService {
 
     private final IUserLessonProgressRepository userLessonProgressRepository;
 
+    private final IS3Service s3Service;
+
     @Override
     public LessonResponseDTO createLesson(Long courseId, LessonRequestDTO lessonRequestDTO) {
         Optional<Course> course = courseRepository.findById(courseId);
@@ -49,6 +53,9 @@ public class LessonServiceImpl implements ILessonService {
 
         lesson.setCourse(courseEntity);
         lesson.setCreatedAt(LocalDateTime.now());
+
+        lesson.setVideoKey(lessonRequestDTO.getVideoKey());
+
 
         Lesson lessonEntity = lessonRepository.save(lesson);
 
@@ -96,8 +103,25 @@ public class LessonServiceImpl implements ILessonService {
             throw new AppException("Lesson with id " + id + " not found", HttpStatus.NOT_FOUND);
         }
 
+        boolean deleted = deleteLessonFromS3(lesson.get().getVideoKey());
+
+        if (!deleted) {
+            throw new AppException("Error deleting lesson video from S3", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
         lessonRepository.deleteById(id);
+
     }
+
+    public boolean deleteLessonFromS3(String videoKey) {
+        try {
+            s3Service.deleteFile("oev-mooc-bucket", videoKey);
+            return true;
+        } catch (S3Exception e) {
+            return false;
+        }
+    }
+
 
     //TODO: update lesson
 }

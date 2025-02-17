@@ -1,9 +1,11 @@
+C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\config\aws\AwsConfig.java
 C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\config\CorsConfig.java
 C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\config\security\AppConfig.java
 C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\config\security\JwtFilter.java
 C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\config\security\JwtService.java
 C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\config\security\SecurityConfig.java
 C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\config\SwaggerConfig.java
+C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\controller\AmazonRestController.java
 C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\controller\AuthRestController.java
 C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\controller\ConferenceRestController.java
 C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\controller\CourseRestController.java
@@ -25,6 +27,7 @@ C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\u
 C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\dto\response\CourseResponseDTO.java
 C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\dto\response\EnrollmentResponseDTO.java
 C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\dto\response\LessonResponseDTO.java
+C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\dto\response\record\PresignedUrlDTO.java
 C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\dto\response\RegistrationResponseDTO.java
 C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\dto\response\TokenResponseDTO.java
 C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\dto\response\UserLessonProgressResponseDTO.java
@@ -63,6 +66,7 @@ C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\u
 C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\service\impl\EnrollmentServiceImpl.java
 C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\service\impl\LessonServiceImpl.java
 C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\service\impl\RegistrationServiceImpl.java
+C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\service\impl\S3ServiceImpl.java
 C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\service\impl\UserLessonProgressServiceImpl.java
 C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\service\impl\UserServiceImpl.java
 C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\service\interfaces\IAuthService.java
@@ -71,5 +75,6 @@ C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\u
 C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\service\interfaces\IEnrollmentService.java
 C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\service\interfaces\ILessonService.java
 C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\service\interfaces\IRegistrationService.java
+C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\service\interfaces\IS3Service.java
 C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\service\interfaces\IUserLessonProgressService.java
 C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\service\interfaces\IUserService.java

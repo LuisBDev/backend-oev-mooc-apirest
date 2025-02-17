@@ -21,7 +21,7 @@ public class UserLessonProgressResponseDTO {
 
     private String lessonTitle;
 
-    private String lessonVideoUrl;
+    private String lessonVideoKey;
 
     private Integer duration;
 

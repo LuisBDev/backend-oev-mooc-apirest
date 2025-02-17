@@ -15,7 +15,7 @@ public class LessonRequestDTO {
     @NotEmpty
     private String title;
 
-    private String videoUrl;
+    private String videoKey;
 
     private Integer sequenceOrder;
 

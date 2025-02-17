@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-02-13T15:49:54-0500",
+    date = "2025-02-17T11:39:39-0500",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21 (Oracle Corporation)"
 )
 @Component
@@ -28,7 +28,7 @@ public class UserLessonProgressMapperImpl implements UserLessonProgressMapper {
         userLessonProgressResponseDTO.userId( userLessonProgressUserId( userLessonProgress ) );
         userLessonProgressResponseDTO.lessonId( userLessonProgressLessonId( userLessonProgress ) );
         userLessonProgressResponseDTO.lessonTitle( userLessonProgressLessonTitle( userLessonProgress ) );
-        userLessonProgressResponseDTO.lessonVideoUrl( userLessonProgressLessonVideoUrl( userLessonProgress ) );
+        userLessonProgressResponseDTO.lessonVideoKey( userLessonProgressLessonVideoKey( userLessonProgress ) );
         userLessonProgressResponseDTO.duration( userLessonProgressLessonDuration( userLessonProgress ) );
         userLessonProgressResponseDTO.id( userLessonProgress.getId() );
         userLessonProgressResponseDTO.status( userLessonProgress.getStatus() );
@@ -96,7 +96,7 @@ public class UserLessonProgressMapperImpl implements UserLessonProgressMapper {
         return title;
     }
 
-    private String userLessonProgressLessonVideoUrl(UserLessonProgress userLessonProgress) {
+    private String userLessonProgressLessonVideoKey(UserLessonProgress userLessonProgress) {
         if ( userLessonProgress == null ) {
             return null;
         }
@@ -104,11 +104,11 @@ public class UserLessonProgressMapperImpl implements UserLessonProgressMapper {
         if ( lesson == null ) {
             return null;
         }
-        String videoUrl = lesson.getVideoUrl();
-        if ( videoUrl == null ) {
+        String videoKey = lesson.getVideoKey();
+        if ( videoKey == null ) {
             return null;
         }
-        return videoUrl;
+        return videoKey;
     }
 
     private Integer userLessonProgressLessonDuration(UserLessonProgress userLessonProgress) {
