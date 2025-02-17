@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-02-15T19:32:30-0500",
-    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.6 (Amazon.com Inc.)"
+    date = "2025-02-17T11:39:39-0500",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21 (Oracle Corporation)"
 )
 @Component
 public class LessonMapperImpl implements LessonMapper {
@@ -28,7 +28,7 @@ public class LessonMapperImpl implements LessonMapper {
         lessonResponseDTO.courseId( lessonCourseId( lesson ) );
         lessonResponseDTO.id( lesson.getId() );
         lessonResponseDTO.title( lesson.getTitle() );
-        lessonResponseDTO.videoUrl( lesson.getVideoUrl() );
+        lessonResponseDTO.videoKey( lesson.getVideoKey() );
         lessonResponseDTO.duration( lesson.getDuration() );
         lessonResponseDTO.sequenceOrder( lesson.getSequenceOrder() );
         lessonResponseDTO.createdAt( lesson.getCreatedAt() );
@@ -60,7 +60,7 @@ public class LessonMapperImpl implements LessonMapper {
         Lesson.LessonBuilder lesson = Lesson.builder();
 
         lesson.title( lessonRequestDTO.getTitle() );
-        lesson.videoUrl( lessonRequestDTO.getVideoUrl() );
+        lesson.videoKey( lessonRequestDTO.getVideoKey() );
         lesson.sequenceOrder( lessonRequestDTO.getSequenceOrder() );
 
         return lesson.build();

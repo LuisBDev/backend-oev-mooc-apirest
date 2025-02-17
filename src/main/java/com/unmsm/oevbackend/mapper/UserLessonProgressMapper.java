@@ -14,7 +14,7 @@ public interface UserLessonProgressMapper {
     @Mapping(source = "user.id", target = "userId")
     @Mapping(source = "lesson.id", target = "lessonId")
     @Mapping(source = "lesson.title", target = "lessonTitle")
-    @Mapping(source = "lesson.videoUrl", target = "lessonVideoUrl")
+    @Mapping(source = "lesson.videoKey", target = "lessonVideoKey")
     @Mapping(source = "lesson.duration", target = "duration")
     UserLessonProgressResponseDTO entityToResponseDTO(UserLessonProgress userLessonProgress);
 

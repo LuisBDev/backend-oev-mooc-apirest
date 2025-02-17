@@ -21,7 +21,7 @@ public class Lesson {
     private Long id;
 
     private String title;
-    private String videoUrl;
+    private String videoKey;
     private Integer duration;
     private Integer sequenceOrder;
 
