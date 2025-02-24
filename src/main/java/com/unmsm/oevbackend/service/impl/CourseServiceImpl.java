@@ -72,10 +72,12 @@ public class CourseServiceImpl implements ICourseService {
         // Copiar solo propiedades no nulas del DTO a la entidad
         BeanUtils.copyProperties(updateCourseRequestDTO, existingCourse, NullPropertiesUtil.getNullPropertyNames(updateCourseRequestDTO));
 
+        existingCourse.setLastUpdate(LocalDateTime.now());
+
         Course updatedCourse = courseRepository.save(existingCourse);
         return courseMapper.entityToDTO(updatedCourse);
     }
-    
+
 
     @Override
     public void deleteCourseById(Long id) {
@@ -111,6 +113,8 @@ public class CourseServiceImpl implements ICourseService {
         course.setUser(userEntity);
         course.setCreationDate(LocalDateTime.now());
         course.setTotalStudents(0);
+        course.setTotalLessons(0);
+        course.setStatus("ACTIVE");
         //TODO: Agregar campos automáticos al crear un curso
 
         courseRepository.save(course);

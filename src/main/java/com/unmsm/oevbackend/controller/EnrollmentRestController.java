@@ -1,6 +1,7 @@
 package com.unmsm.oevbackend.controller;
 
 import com.unmsm.oevbackend.dto.request.EnrollmentRequestDTO;
+import com.unmsm.oevbackend.dto.request.EnrollmentUpdateRequestDTO;
 import com.unmsm.oevbackend.dto.response.EnrollmentResponseDTO;
 import com.unmsm.oevbackend.dto.response.UserResponseDTO;
 import com.unmsm.oevbackend.service.interfaces.IEnrollmentService;
@@ -55,4 +56,11 @@ public class EnrollmentRestController {
         enrollmentService.deleteEnrollmentById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @PatchMapping("/update/{id}")
+    public ResponseEntity<EnrollmentResponseDTO> updateEnrollmentById(@PathVariable Long id, @Valid @RequestBody EnrollmentUpdateRequestDTO enrollmentUpdateRequestDTO) {
+        EnrollmentResponseDTO response = enrollmentService.updateEnrollmentById(id, enrollmentUpdateRequestDTO);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
 }

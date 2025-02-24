@@ -61,6 +61,7 @@ public class UserServiceImpl implements IUserService {
         // Copiar solo propiedades no nulas del DTO a la entidad
         BeanUtils.copyProperties(updateUserRequestDTO, existingUser, NullPropertiesUtil.getNullPropertyNames(updateUserRequestDTO));
 
+
         User updatedUser = userRepository.save(existingUser);
         return userMapper.entityToDTO(updatedUser);
     }
@@ -75,5 +76,5 @@ public class UserServiceImpl implements IUserService {
         userRepository.deleteById(id);
 
     }
-    
+
 }

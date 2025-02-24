@@ -2,14 +2,11 @@ package com.unmsm.oevbackend.service.impl;
 
 import com.unmsm.oevbackend.dto.request.ConferenceRequestDTO;
 import com.unmsm.oevbackend.dto.request.UpdateConferenceRequestDTO;
-import com.unmsm.oevbackend.dto.request.UpdateCourseRequestDTO;
 import com.unmsm.oevbackend.dto.response.ConferenceResponseDTO;
-import com.unmsm.oevbackend.dto.response.CourseResponseDTO;
 import com.unmsm.oevbackend.exception.AppException;
 import com.unmsm.oevbackend.exception.UserNotFoundException;
 import com.unmsm.oevbackend.mapper.ConferenceMapper;
 import com.unmsm.oevbackend.model.Conference;
-import com.unmsm.oevbackend.model.Course;
 import com.unmsm.oevbackend.model.User;
 import com.unmsm.oevbackend.model.enums.Role;
 import com.unmsm.oevbackend.repository.IConferenceRepository;
@@ -65,6 +62,8 @@ public class ConferenceServiceImpl implements IConferenceService {
 
         // Copiar solo propiedades no nulas del DTO a la entidad
         BeanUtils.copyProperties(updateConferenceRequestDTO, existingConference, NullPropertiesUtil.getNullPropertyNames(updateConferenceRequestDTO));
+
+        existingConference.setLastUpdate(LocalDateTime.now());
 
         Conference updatedConference = conferenceRepository.save(existingConference);
         return conferenceMapper.entityToDTO(updatedConference);

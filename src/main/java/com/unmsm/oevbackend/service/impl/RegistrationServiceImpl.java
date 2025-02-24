@@ -2,8 +2,10 @@ package com.unmsm.oevbackend.service.impl;
 
 import com.unmsm.oevbackend.dto.request.RegistrationRequestDTO;
 import com.unmsm.oevbackend.dto.response.RegistrationResponseDTO;
+import com.unmsm.oevbackend.dto.response.UserResponseDTO;
 import com.unmsm.oevbackend.exception.AppException;
 import com.unmsm.oevbackend.mapper.RegistrationMapper;
+import com.unmsm.oevbackend.mapper.UserMapper;
 import com.unmsm.oevbackend.model.Conference;
 import com.unmsm.oevbackend.model.Registration;
 import com.unmsm.oevbackend.model.User;
@@ -31,6 +33,8 @@ public class RegistrationServiceImpl implements IRegistrationService {
 
     private final RegistrationMapper registrationMapper;
 
+    private final UserMapper userMapper;
+
     @Override
     public RegistrationResponseDTO createRegistration(RegistrationRequestDTO registrationRequestDTO) {
         Optional<Conference> conference = conferenceRepository.findById(registrationRequestDTO.getConferenceId());
@@ -45,6 +49,10 @@ public class RegistrationServiceImpl implements IRegistrationService {
         if (registrationRepository.existsRegistrationByUserIdAndConferenceId(registrationRequestDTO.getUserId(), registrationRequestDTO.getConferenceId())) {
             throw new AppException("User with id " + registrationRequestDTO.getUserId() + " is already registered in conference with id " + registrationRequestDTO.getConferenceId(), HttpStatus.BAD_REQUEST);
         }
+
+        Conference conferenceEntity = conference.get();
+        conferenceEntity.setTotalStudents(conferenceEntity.getTotalStudents() + 1);
+
 
         Registration registrationEntity = Registration.builder()
                 .conference(conference.get())
@@ -85,7 +93,17 @@ public class RegistrationServiceImpl implements IRegistrationService {
         if (registration.isEmpty()) {
             throw new AppException("Registration with id " + registrationId + " not found", HttpStatus.NOT_FOUND);
         }
+
+        Conference conference = registration.get().getConference();
+        conference.setTotalStudents(conference.getTotalStudents() - 1);
+
         registrationRepository.deleteById(registrationId);
+    }
+
+    @Override
+    public List<UserResponseDTO> findRegisteredUsersByConferenceId(Long conferenceId) {
+        List<User> users = registrationRepository.findRegisteredUsersByConferenceId(conferenceId);
+        return userMapper.entityListToDTOList(users);
     }
 
 }

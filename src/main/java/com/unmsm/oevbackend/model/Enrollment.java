@@ -29,4 +29,6 @@ public class Enrollment {
     private String status; // Ejemplo: 'ACTIVE', 'COMPLETED'
     private Double progress; // Progreso del curso en porcentaje
     private LocalDateTime enrollmentDate;
+
+    private boolean paid;
 }
