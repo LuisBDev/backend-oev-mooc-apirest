@@ -24,7 +24,7 @@ public class Conference {
     private String imageUrl;
     private String category;
     private Integer totalStudents;
-    private String status; // Ejemplo: 'ACTIVE', 'COMPLETED'
+    private String status;
     private LocalDateTime creationDate;
     private LocalDateTime lastUpdate;
 

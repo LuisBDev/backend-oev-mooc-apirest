@@ -1,8 +1,11 @@
 package com.unmsm.oevbackend.service.impl;
 
 import com.unmsm.oevbackend.dto.request.CourseRequestDTO;
+import com.unmsm.oevbackend.dto.request.UpdateCourseRequestDTO;
+import com.unmsm.oevbackend.dto.request.UpdateUserRequestDTO;
 import com.unmsm.oevbackend.dto.response.CourseResponseDTO;
 import com.unmsm.oevbackend.dto.response.LessonResponseDTO;
+import com.unmsm.oevbackend.dto.response.UserResponseDTO;
 import com.unmsm.oevbackend.exception.AppException;
 import com.unmsm.oevbackend.exception.UserNotFoundException;
 import com.unmsm.oevbackend.mapper.CourseMapper;
@@ -15,7 +18,9 @@ import com.unmsm.oevbackend.repository.ICourseRepository;
 import com.unmsm.oevbackend.repository.IUserRepository;
 import com.unmsm.oevbackend.service.interfaces.ICourseService;
 import com.unmsm.oevbackend.service.interfaces.IS3Service;
+import com.unmsm.oevbackend.utils.NullPropertiesUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -58,6 +63,19 @@ public class CourseServiceImpl implements ICourseService {
         }
         return courseMapper.entityToDTO(course.get());
     }
+
+    @Override
+    public CourseResponseDTO updateCourseById(Long id, UpdateCourseRequestDTO updateCourseRequestDTO) {
+        Course existingCourse = courseRepository.findById(id)
+                .orElseThrow(() -> new AppException("Course with id " + id + " not found", HttpStatus.NOT_FOUND));
+
+        // Copiar solo propiedades no nulas del DTO a la entidad
+        BeanUtils.copyProperties(updateCourseRequestDTO, existingCourse, NullPropertiesUtil.getNullPropertyNames(updateCourseRequestDTO));
+
+        Course updatedCourse = courseRepository.save(existingCourse);
+        return courseMapper.entityToDTO(updatedCourse);
+    }
+    
 
     @Override
     public void deleteCourseById(Long id) {
