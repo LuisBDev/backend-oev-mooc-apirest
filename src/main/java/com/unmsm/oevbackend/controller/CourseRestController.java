@@ -1,6 +1,7 @@
 package com.unmsm.oevbackend.controller;
 
 import com.unmsm.oevbackend.dto.request.CourseRequestDTO;
+import com.unmsm.oevbackend.dto.request.UpdateCourseRequestDTO;
 import com.unmsm.oevbackend.dto.response.CourseResponseDTO;
 import com.unmsm.oevbackend.service.interfaces.ICourseService;
 import jakarta.validation.Valid;
@@ -41,6 +42,11 @@ public class CourseRestController {
     public ResponseEntity<Void> deleteCourseById(@PathVariable Long id) {
         courseService.deleteCourseById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/update/{id}")
+    public ResponseEntity<CourseResponseDTO> updateCourseById(@PathVariable Long id, @Valid @RequestBody UpdateCourseRequestDTO courseRequestDTO) {
+        return ResponseEntity.ok(courseService.updateCourseById(id, courseRequestDTO));
     }
 
 }

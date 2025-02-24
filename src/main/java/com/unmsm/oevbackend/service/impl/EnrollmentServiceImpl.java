@@ -1,6 +1,7 @@
 package com.unmsm.oevbackend.service.impl;
 
 import com.unmsm.oevbackend.dto.request.EnrollmentRequestDTO;
+import com.unmsm.oevbackend.dto.request.EnrollmentUpdateRequestDTO;
 import com.unmsm.oevbackend.dto.response.EnrollmentResponseDTO;
 import com.unmsm.oevbackend.dto.response.UserResponseDTO;
 import com.unmsm.oevbackend.exception.AppException;
@@ -10,7 +11,9 @@ import com.unmsm.oevbackend.model.*;
 import com.unmsm.oevbackend.model.enums.Status;
 import com.unmsm.oevbackend.repository.*;
 import com.unmsm.oevbackend.service.interfaces.IEnrollmentService;
+import com.unmsm.oevbackend.utils.NullPropertiesUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -51,12 +54,16 @@ public class EnrollmentServiceImpl implements IEnrollmentService {
             throw new AppException("User with id " + enrollmentRequestDTO.getUserId() + " is already enrolled in course with id " + enrollmentRequestDTO.getCourseId(), HttpStatus.BAD_REQUEST);
         }
 
+        Course courseEntity = course.get();
+        courseEntity.setTotalStudents(courseEntity.getTotalStudents() + 1);
+
         Enrollment enrollmentEntity = Enrollment.builder()
-                .course(course.get())
+                .course(courseEntity)
                 .user(user.get())
                 .status("ACTIVE")
                 .progress(0.0)
                 .enrollmentDate(LocalDateTime.now())
+                .paid(false)
                 .build();
 
         enrollmentRepository.save(enrollmentEntity);
@@ -111,6 +118,10 @@ public class EnrollmentServiceImpl implements IEnrollmentService {
         if (enrollment.isEmpty()) {
             throw new AppException("Enrollment with id " + enrollmentId + " not found", HttpStatus.NOT_FOUND);
         }
+
+        Course course = enrollment.get().getCourse();
+        course.setTotalStudents(course.getTotalStudents() - 1);
+
         enrollmentRepository.deleteById(enrollmentId);
     }
 
@@ -118,5 +129,17 @@ public class EnrollmentServiceImpl implements IEnrollmentService {
     public List<UserResponseDTO> findEnrolledUsersByCourseId(Long courseId) {
         List<User> enrolledUsers = enrollmentRepository.findEnrolledUsersByCourseId(courseId);
         return userMapper.entityListToDTOList(enrolledUsers);
+    }
+
+    @Override
+    public EnrollmentResponseDTO updateEnrollmentById(Long enrollmentId, EnrollmentUpdateRequestDTO enrollmentUpdateRequestDTO) {
+        Enrollment existingEnrollment = enrollmentRepository.findById(enrollmentId)
+                .orElseThrow(() -> new AppException("Enrollment with id " + enrollmentId + " not found", HttpStatus.NOT_FOUND));
+
+        // Copiar solo propiedades no nulas del DTO a la entidad
+        BeanUtils.copyProperties(enrollmentUpdateRequestDTO, existingEnrollment, NullPropertiesUtil.getNullPropertyNames(enrollmentUpdateRequestDTO));
+
+        Enrollment updatedEnrollment = enrollmentRepository.save(existingEnrollment);
+        return enrollmentMapper.entityToResponseDTO(updatedEnrollment);
     }
 }

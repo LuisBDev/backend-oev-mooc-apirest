@@ -29,4 +29,6 @@ public class EnrollmentResponseDTO {
 
     private String instructorName;
 
+    private boolean paid;
+
 }

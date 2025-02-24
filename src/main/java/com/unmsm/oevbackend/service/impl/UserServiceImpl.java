@@ -7,6 +7,7 @@ import com.unmsm.oevbackend.mapper.UserMapper;
 import com.unmsm.oevbackend.model.User;
 import com.unmsm.oevbackend.repository.IUserRepository;
 import com.unmsm.oevbackend.service.interfaces.IUserService;
+import com.unmsm.oevbackend.utils.NullPropertiesUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
@@ -58,7 +59,8 @@ public class UserServiceImpl implements IUserService {
                 .orElseThrow(() -> new UserNotFoundException("User with id " + id + " not found", HttpStatus.NOT_FOUND));
 
         // Copiar solo propiedades no nulas del DTO a la entidad
-        BeanUtils.copyProperties(updateUserRequestDTO, existingUser, getNullPropertyNames(updateUserRequestDTO));
+        BeanUtils.copyProperties(updateUserRequestDTO, existingUser, NullPropertiesUtil.getNullPropertyNames(updateUserRequestDTO));
+
 
         User updatedUser = userRepository.save(existingUser);
         return userMapper.entityToDTO(updatedUser);
@@ -75,14 +77,4 @@ public class UserServiceImpl implements IUserService {
 
     }
 
-    private String[] getNullPropertyNames(Object source) {
-        final BeanWrapper src = new BeanWrapperImpl(source);
-        PropertyDescriptor[] pds = src.getPropertyDescriptors();
-        Set<String> emptyNames = new HashSet<>();
-        for (PropertyDescriptor pd : pds) {
-            Object srcValue = src.getPropertyValue(pd.getName());
-            if (srcValue == null) emptyNames.add(pd.getName());
-        }
-        return emptyNames.toArray(new String[0]);
-    }
 }

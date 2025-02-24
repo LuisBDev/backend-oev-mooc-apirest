@@ -2,6 +2,7 @@ package com.unmsm.oevbackend.controller;
 
 import com.unmsm.oevbackend.dto.request.RegistrationRequestDTO;
 import com.unmsm.oevbackend.dto.response.RegistrationResponseDTO;
+import com.unmsm.oevbackend.dto.response.UserResponseDTO;
 import com.unmsm.oevbackend.service.interfaces.IRegistrationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -47,4 +48,11 @@ public class RegistrationRestController {
         registrationService.deleteRegistrationById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @GetMapping("/findRegisteredUsersByConferenceId/{conferenceId}")
+    public ResponseEntity<List<UserResponseDTO>> findRegisteredUsersByConferenceId(@PathVariable Long conferenceId) {
+        List<UserResponseDTO> response = registrationService.findRegisteredUsersByConferenceId(conferenceId);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
 }

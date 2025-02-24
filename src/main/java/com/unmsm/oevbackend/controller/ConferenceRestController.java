@@ -1,6 +1,7 @@
 package com.unmsm.oevbackend.controller;
 
 import com.unmsm.oevbackend.dto.request.ConferenceRequestDTO;
+import com.unmsm.oevbackend.dto.request.UpdateConferenceRequestDTO;
 import com.unmsm.oevbackend.dto.response.ConferenceResponseDTO;
 import com.unmsm.oevbackend.service.interfaces.IConferenceService;
 import com.unmsm.oevbackend.service.interfaces.IUserService;
@@ -43,6 +44,11 @@ public class ConferenceRestController {
     public ResponseEntity<Void> deleteConferenceById(@PathVariable Long id) {
         conferenceService.deleteConferenceById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/update/{id}")
+    public ResponseEntity<ConferenceResponseDTO> updateConferenceById(@PathVariable Long id, @Valid @RequestBody UpdateConferenceRequestDTO updateConferenceRequestDTO) {
+        return ResponseEntity.ok(conferenceService.updateConferenceById(id, updateConferenceRequestDTO));
     }
 
 }

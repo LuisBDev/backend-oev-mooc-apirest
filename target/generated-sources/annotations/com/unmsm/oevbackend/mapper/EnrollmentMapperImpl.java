@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-02-17T11:46:04-0500",
+    date = "2025-02-24T10:08:38-0500",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21 (Oracle Corporation)"
 )
 @Component
@@ -33,6 +33,7 @@ public class EnrollmentMapperImpl implements EnrollmentMapper {
         enrollmentResponseDTO.status( enrollment.getStatus() );
         enrollmentResponseDTO.progress( enrollment.getProgress() );
         enrollmentResponseDTO.enrollmentDate( enrollment.getEnrollmentDate() );
+        enrollmentResponseDTO.paid( enrollment.isPaid() );
 
         enrollmentResponseDTO.instructorName( enrollment.getCourse().getUser().getName() + ' ' + enrollment.getCourse().getUser().getPaternalSurname() );
 

@@ -17,8 +17,11 @@ C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\u
 C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\dto\request\ConferenceRequestDTO.java
 C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\dto\request\CourseRequestDTO.java
 C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\dto\request\EnrollmentRequestDTO.java
+C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\dto\request\EnrollmentUpdateRequestDTO.java
 C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\dto\request\LessonRequestDTO.java
 C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\dto\request\RegistrationRequestDTO.java
+C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\dto\request\UpdateConferenceRequestDTO.java
+C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\dto\request\UpdateCourseRequestDTO.java
 C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\dto\request\UpdateUserRequestDTO.java
 C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\dto\request\UserLoginRequestDTO.java
 C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\dto\request\UserRegisterRequestDTO.java
@@ -78,3 +81,4 @@ C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\u
 C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\service\interfaces\IS3Service.java
 C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\service\interfaces\IUserLessonProgressService.java
 C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\service\interfaces\IUserService.java
+C:\Users\Developer\Desktop\Projects\backend-oev-mooc-apirest\src\main\java\com\unmsm\oevbackend\utils\NullPropertiesUtil.java

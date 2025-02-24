@@ -1,6 +1,7 @@
 package com.unmsm.oevbackend.service.interfaces;
 
 import com.unmsm.oevbackend.dto.request.CourseRequestDTO;
+import com.unmsm.oevbackend.dto.request.UpdateCourseRequestDTO;
 import com.unmsm.oevbackend.dto.response.CourseResponseDTO;
 import com.unmsm.oevbackend.dto.response.LessonResponseDTO;
 import com.unmsm.oevbackend.model.Course;
@@ -13,10 +14,10 @@ public interface ICourseService {
     List<CourseResponseDTO> findAllCourses();
 
     List<CourseResponseDTO> findAllCoursesByUserId(Long userId);
-    
+
     CourseResponseDTO findCourseById(Long id);
 
-//    CourseResponseDTO updateCourseById(Long id, UpdateCourseRequestDTO updateCourseRequestDTO);
+    CourseResponseDTO updateCourseById(Long id, UpdateCourseRequestDTO updateCourseRequestDTO);
 
     void deleteCourseById(Long id);
 
