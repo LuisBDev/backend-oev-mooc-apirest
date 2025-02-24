@@ -84,7 +84,7 @@ public class ConferenceServiceImpl implements IConferenceService {
 
         User userEntity = user.get();
 
-        if (!userEntity.getRole().equals(Role.ADMINISTRATIVE)) {
+        if (!userEntity.getRole().equals(Role.ADMIN)) {
             throw new AppException("User with id " + userId + " is not allowed to create courses", HttpStatus.FORBIDDEN);
         }
 
