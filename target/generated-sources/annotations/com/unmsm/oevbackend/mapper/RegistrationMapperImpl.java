@@ -4,6 +4,7 @@ import com.unmsm.oevbackend.dto.response.RegistrationResponseDTO;
 import com.unmsm.oevbackend.model.Conference;
 import com.unmsm.oevbackend.model.Registration;
 import com.unmsm.oevbackend.model.User;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-02-24T15:08:39-0500",
+    date = "2025-02-25T12:57:10-0500",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21 (Oracle Corporation)"
 )
 @Component
@@ -27,9 +28,17 @@ public class RegistrationMapperImpl implements RegistrationMapper {
 
         registrationResponseDTO.conferenceId( registrationConferenceId( registration ) );
         registrationResponseDTO.userId( registrationUserId( registration ) );
+        registrationResponseDTO.conferenceDate( registrationConferenceDate( registration ) );
+        registrationResponseDTO.conferenceName( registrationConferenceName( registration ) );
+        registrationResponseDTO.conferenceImageUrl( registrationConferenceImageUrl( registration ) );
+        registrationResponseDTO.conferenceCategory( registrationConferenceCategory( registration ) );
+        registrationResponseDTO.conferenceTotalStudents( registrationConferenceTotalStudents( registration ) );
+        registrationResponseDTO.conferenceDescription( registrationConferenceDescription( registration ) );
         registrationResponseDTO.id( registration.getId() );
         registrationResponseDTO.status( registration.getStatus() );
         registrationResponseDTO.registrationDate( registration.getRegistrationDate() );
+
+        registrationResponseDTO.creatorName( registration.getConference().getUser().getName() + ' ' + registration.getConference().getUser().getPaternalSurname() );
 
         return registrationResponseDTO.build();
     }
@@ -76,5 +85,95 @@ public class RegistrationMapperImpl implements RegistrationMapper {
             return null;
         }
         return id;
+    }
+
+    private LocalDate registrationConferenceDate(Registration registration) {
+        if ( registration == null ) {
+            return null;
+        }
+        Conference conference = registration.getConference();
+        if ( conference == null ) {
+            return null;
+        }
+        LocalDate date = conference.getDate();
+        if ( date == null ) {
+            return null;
+        }
+        return date;
+    }
+
+    private String registrationConferenceName(Registration registration) {
+        if ( registration == null ) {
+            return null;
+        }
+        Conference conference = registration.getConference();
+        if ( conference == null ) {
+            return null;
+        }
+        String name = conference.getName();
+        if ( name == null ) {
+            return null;
+        }
+        return name;
+    }
+
+    private String registrationConferenceImageUrl(Registration registration) {
+        if ( registration == null ) {
+            return null;
+        }
+        Conference conference = registration.getConference();
+        if ( conference == null ) {
+            return null;
+        }
+        String imageUrl = conference.getImageUrl();
+        if ( imageUrl == null ) {
+            return null;
+        }
+        return imageUrl;
+    }
+
+    private String registrationConferenceCategory(Registration registration) {
+        if ( registration == null ) {
+            return null;
+        }
+        Conference conference = registration.getConference();
+        if ( conference == null ) {
+            return null;
+        }
+        String category = conference.getCategory();
+        if ( category == null ) {
+            return null;
+        }
+        return category;
+    }
+
+    private Integer registrationConferenceTotalStudents(Registration registration) {
+        if ( registration == null ) {
+            return null;
+        }
+        Conference conference = registration.getConference();
+        if ( conference == null ) {
+            return null;
+        }
+        Integer totalStudents = conference.getTotalStudents();
+        if ( totalStudents == null ) {
+            return null;
+        }
+        return totalStudents;
+    }
+
+    private String registrationConferenceDescription(Registration registration) {
+        if ( registration == null ) {
+            return null;
+        }
+        Conference conference = registration.getConference();
+        if ( conference == null ) {
+            return null;
+        }
+        String description = conference.getDescription();
+        if ( description == null ) {
+            return null;
+        }
+        return description;
     }
 }

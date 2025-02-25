@@ -3,6 +3,7 @@ package com.unmsm.oevbackend.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -27,6 +28,7 @@ public class Conference {
     private String status;
     private LocalDateTime creationDate;
     private LocalDateTime lastUpdate;
+    private LocalDate date;
 
     @OneToMany(mappedBy = "conference", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Registration> registrationList;
