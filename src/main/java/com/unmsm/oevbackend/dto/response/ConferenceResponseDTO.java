@@ -1,15 +1,9 @@
 package com.unmsm.oevbackend.dto.response;
 
-import com.unmsm.oevbackend.model.Registration;
-import com.unmsm.oevbackend.model.User;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Setter
@@ -28,6 +22,7 @@ public class ConferenceResponseDTO {
     private String status;
     private LocalDateTime creationDate;
     private LocalDateTime lastUpdate;
+    private LocalDate date;
 
 
     private Long userId;
