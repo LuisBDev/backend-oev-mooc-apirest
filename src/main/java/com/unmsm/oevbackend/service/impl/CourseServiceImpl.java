@@ -2,10 +2,7 @@ package com.unmsm.oevbackend.service.impl;
 
 import com.unmsm.oevbackend.dto.request.CourseRequestDTO;
 import com.unmsm.oevbackend.dto.request.UpdateCourseRequestDTO;
-import com.unmsm.oevbackend.dto.request.UpdateUserRequestDTO;
 import com.unmsm.oevbackend.dto.response.CourseResponseDTO;
-import com.unmsm.oevbackend.dto.response.LessonResponseDTO;
-import com.unmsm.oevbackend.dto.response.UserResponseDTO;
 import com.unmsm.oevbackend.exception.AppException;
 import com.unmsm.oevbackend.exception.UserNotFoundException;
 import com.unmsm.oevbackend.mapper.CourseMapper;

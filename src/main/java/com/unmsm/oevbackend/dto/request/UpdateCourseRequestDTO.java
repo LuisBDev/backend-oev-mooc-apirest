@@ -17,6 +17,7 @@ public class UpdateCourseRequestDTO {
     private String level;
     private Double price;
     private String status;
+    private String imageUrl;
 
 
 }

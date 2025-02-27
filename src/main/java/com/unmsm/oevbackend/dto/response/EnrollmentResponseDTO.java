@@ -31,4 +31,6 @@ public class EnrollmentResponseDTO {
 
     private boolean paid;
 
+    private String category;
+
 }
